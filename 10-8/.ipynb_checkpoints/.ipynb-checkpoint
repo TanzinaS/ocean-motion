@@ -1,0 +1,511 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "sQXMtgallSEq"
+   },
+   "source": [
+    "# Welcome back!\n",
+    "\n",
+    "\n",
+    "Today we are going to write a script to assign cheers and challenges dates to interns: \n",
+    "\n",
+    "Our goal is to assign a name to each Thursday date between now and the end of the year. Something like this: \n",
+    "\n",
+    "![image](https://raw.githubusercontent.com/madesai22/ocean-ml/master/images/final_product.jpeg) \n",
+    "\n",
+    "To do this, we are going to use the datetime module. The datetime module is used to deal with real dates and times in python. First, we need to import the **date** object from the datetime module:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {
+    "id": "hQXS9mp3lSEr"
+   },
+   "outputs": [],
+   "source": [
+    "from datetime import date"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "22LnVIZnlSEw"
+   },
+   "source": [
+    "With this, we can create variables that are date objects:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 34
+    },
+    "id": "BbLWdWkglSEx",
+    "outputId": "76e4f74b-7a5a-4af9-ab37-47202158e9aa"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2020-10-08\n",
+      "2005-12-05\n"
+     ]
+    }
+   ],
+   "source": [
+    "meeras_birthday = date(1996,5,22)\n",
+    "today = date.today()\n",
+    "\n",
+    "print(today)\n",
+    "# add your birthday here:\n",
+    "mybirth = date(2005,12,5)\n",
+    "print(mybirth)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "_ANeqrJVlSE1"
+   },
+   "source": [
+    "We're also going to import the **timedelta** object from the datetime module:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {
+    "id": "x2W5I9nWlSE3"
+   },
+   "outputs": [],
+   "source": [
+    "from datetime import timedelta"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "b5F21EqmlSE7"
+   },
+   "source": [
+    "The timedelta object is for adding or subtracting times from one another. For example, when you subtract two dates, the result is a timedelta object:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 51
+    },
+    "id": "khVRie9plSE7",
+    "outputId": "b787b969-708a-4df4-b530-dd8914fa4bc7"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'datetime.timedelta'>\n",
+      "5421 days, 0:00:00\n"
+     ]
+    }
+   ],
+   "source": [
+    "# timedelta Example 1: \n",
+    "meeras_age = today - meeras_birthday \n",
+    "#print(type(meeras_age))\n",
+    "# write code to calcualte and print your age and the type of this variable\n",
+    "# Here :\n",
+    "#print(meeras_age)\n",
+    "myage = today - mybirth\n",
+    "print(type(myage))\n",
+    "print(myage)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "paBjCFBAlSE-"
+   },
+   "source": [
+    "You can use timedeltas to calculate time in the future or the past:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 34
+    },
+    "id": "Sngt2Z53lSE_",
+    "outputId": "452954df-ff2f-42cc-9f71-7c5275ff4b23"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2020-10-15\n"
+     ]
+    }
+   ],
+   "source": [
+    "# timedelta Example 2:\n",
+    "one_week = timedelta(days = 7)\n",
+    "next_week = today + one_week\n",
+    "print(next_week)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {
+    "id": "Wijxt2I9lSFC"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2020-10-22\n",
+      "2020-09-24\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Write code to calculate the date in two weeks: \n",
+    "twoweeks = timedelta(days = 14)\n",
+    "nextnextweek = today +twoweeks\n",
+    "print(nextnextweek)\n",
+    "\n",
+    "# write code to calculate the date two weeks ago:\n",
+    "lastlastweek=  today - twoweeks\n",
+    "print(lastlastweek)\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "hx_mMlO9lSFF"
+   },
+   "source": [
+    "One more thing before we can start writing our script.\n",
+    "Normally when we want to loop through a list, we get to the end of the list and stop:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {
+    "id": "ykj1nRoSlSFG"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "this\n",
+      "is\n",
+      "an\n",
+      "example\n",
+      "list\n",
+      "of\n",
+      "strings\n"
+     ]
+    }
+   ],
+   "source": [
+    "example_list = ['this','is','an','example','list','of','strings']\n",
+    "\n",
+    "# write code to iterate through this list and print each item:\n",
+    "for i in example_list:\n",
+    "    print(i)\n",
+    "    \n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "RQpW0TAAlSFI"
+   },
+   "source": [
+    "For our purposes, we need to continue to loop through a list. For this we use **cycle** from the itertools module. Let's see what this code does:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {
+    "id": "by9CfvJmqJLA"
+   },
+   "outputs": [],
+   "source": [
+    "from itertools import cycle \n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 1000
+    },
+    "id": "oyNpXtlhlSFI",
+    "outputId": "f795a4ac-102a-4731-afad-a3b4cf83361d"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "this\n"
+     ]
+    }
+   ],
+   "source": [
+    "example_cycle = cycle(example_list)\n",
+    "for item in example_cycle:\n",
+    "    print(item)\n",
+    "    break\n",
+    "\n",
+    "# write code to print the items in example_cycle:\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "XqkaoW26lSFM"
+   },
+   "source": [
+    "Uhoh! We can stop an ongoing loop with a **break** statement. We can worry about this when we write our script. Let's start thinking about the variables we need to make our script. One thing we might need is a list of dates we don't need to assign someone to (dates we don't meet or when interns have a workshop). We can store these in a set, which is kind of like a list with some special properites. You denote a set using these brackets { } as shown:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {
+    "id": "A0iG6RTrlSFN"
+   },
+   "outputs": [],
+   "source": [
+    "no_session = { date(2020,11,3), date(2020,12,22), date(2020,12,29),\n",
+    "              date(2021,2,16), date(2021,3,30), date(2021,5,13)\n",
+    "              }"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "HZHzZRILlSFP"
+   },
+   "source": [
+    "Another thing we might need is the start and end dates. We can make the start date today.  The end of cheers/challenges is June 1th, 2020.  "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 34,
+   "metadata": {
+    "id": "z1lPcpjDlSFP"
+   },
+   "outputs": [],
+   "source": [
+    "# Write code to assign start and end dates to variable here\n",
+    "startdate = today\n",
+    "enddate= date(2021,6,1)\n",
+    "newyears= date(2020,1,1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "SftfWu-ylSFR"
+   },
+   "source": [
+    "What else do we need? How can we use these elements to make a script that does what we want?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 238
+    },
+    "id": "EF0l-oRPlSFS",
+    "outputId": "8d7bdff8-752e-4e47-bc93-500c0a2ee66c"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2020-10-08\n",
+      "strings\n",
+      "this\n",
+      "is\n",
+      "an\n",
+      "example\n",
+      "list\n",
+      "of\n",
+      "strings\n",
+      "this\n",
+      "is\n",
+      "an\n",
+      "example\n"
+     ]
+    }
+   ],
+   "source": [
+    "if today not in no_session:\n",
+    "    print(today)\n",
+    "i = 0 \n",
+    "while i<12:\n",
+    "    print(next(example_cycle))\n",
+    "    i+= 1\n",
+    "    \n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 36,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 187
+    },
+    "id": "wee7vM5qlSFU",
+    "outputId": "28f8c547-1c2a-4d00-9e5b-2df5cf117867"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2021-03-04\n",
+      "2021-03-11\n",
+      "2021-03-18\n",
+      "2021-03-25\n",
+      "2021-04-01\n",
+      "2021-04-08\n",
+      "2021-04-15\n",
+      "2021-04-22\n",
+      "2021-04-29\n",
+      "2021-05-06\n",
+      "2021-05-13\n",
+      "2021-05-20\n",
+      "2021-05-27\n",
+      "0\n",
+      "3\n",
+      "6\n",
+      "9\n",
+      "12\n",
+      "15\n",
+      "18\n",
+      "21\n",
+      "24\n",
+      "27\n"
+     ]
+    }
+   ],
+   "source": [
+    "I left of here\n",
+    "# Use this space to map out your code. What variables do you need? \n",
+    "\n",
+    "# start, end, list of intern names, list of dates with no sessions, \n",
+    "# make a loop that prints all the cheers and challenges dates\n",
+    "\n",
+    "# step 1: make a loop that prints ALL the tuesdays between now and the end of internships\n",
+    "\n",
+    "today = date.today()\n",
+    "tomorrow = date(2019,10,25)\n",
+    "\n",
+    "def alltuesday(year):\n",
+    "   d = date(year, 3, 3)                    # January 1st\n",
+    "   d += timedelta(days = 3 - d.weekday())  # First Sunday\n",
+    "   while d.year == year:\n",
+    "      yield d\n",
+    "      d += timedelta(days = 7)\n",
+    "\n",
+    "for d in alltuesday(2021):\n",
+    "    if (newyears<d<enddate):\n",
+    "       print(d)\n",
+    "\n",
+    "\n",
+    "if(today<tomorrow):\n",
+    "    print('true')\n",
+    "\n",
+    "    \n",
+    "i = 0 \n",
+    "while i <= 9:\n",
+    "    print(3*i)\n",
+    "    i += 1\n",
+    "\n",
+    "\n",
+    "\n",
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "Pbpzd_fvlSFX"
+   },
+   "source": [
+    "Bonus if we have time: How can you write this to a file instead of printing to the screen? "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "id": "cvguyLpNlSFX"
+   },
+   "outputs": [],
+   "source": [
+    "# write that here if you have time :-)\n",
+    "\n"
+   ]
+  }
+ ],
+ "metadata": {
+  "colab": {
+   "name": "Cheers and Challenges.ipynb",
+   "provenance": []
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 1
+}
